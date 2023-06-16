@@ -1,33 +1,30 @@
 import React from 'react'
 
-export function Paciente() {
+export function Paciente({paciente}) {
   return (
-    <div className="m-3 bg-white shadow-md  px-5 py-10 rounded-md">
+    <div className="mx-5 mb-10 bg-white shadow-md  px-5 py-10 rounded-md">
         <p className="font-bold mb-3 text-gray-700 uppercase">
           Mascota: {""}
-          <span className="font-normal normal-case">Oancho</span>
+          <span className="font-normal normal-case">{paciente.nombre}</span>
         </p>
         <p className="font-bold mb-3 text-gray-700 uppercase">
           Propietario: {""}
-          <span className="font-normal normal-case">Juany</span>
+          <span className="font-normal normal-case">{paciente.propietario}</span>
         </p>
         <p className="font-bold mb-3 text-gray-700 uppercase">
           Email: {""}
-          <span className="font-normal normal-case">juany@gmail.com</span>
+          <span className="font-normal normal-case">{paciente.email}</span>
         </p>
         <p className="font-bold mb-3 text-gray-700 uppercase">
           Fecha Alta: {""}
           <span className="font-normal normal-case">
-            10 de diciembre del 2023
+           {paciente.fecha}
           </span>
         </p>
         <p className="font-bold mb-3 text-gray-700 uppercase">
           Sintomas: {""}
           <span className="font-normal normal-case">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet,
-            et ratione magnam voluptatibus quos iure ipsum placeat eum
-            recusandae nisi. Veniam, consequatur voluptatum! Vero suscipit
-            dolore, totam enim dolores reprehenderit.
+            {paciente.sintomas}
           </span>
         </p>
       </div>
