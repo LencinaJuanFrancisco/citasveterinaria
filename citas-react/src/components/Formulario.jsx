@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Error } from "./Error";
 
-export function Formulario({ unPaciente, pacientes, setPacientes }) {
+export function Formulario({ unPaciente, pacientes, setPacientes,setUnPaciente }) {
   const [nombre, setNombre] = useState("");
   const [propietario, setPropietario] = useState("");
   const [email, setEmail] = useState("");
@@ -51,6 +51,7 @@ export function Formulario({ unPaciente, pacientes, setPacientes }) {
           pte.id === unPaciente.id ? objetoPasiente : pte
         );
         setPacientes(pacientesActualizados)
+        setUnPaciente({})// limpiamos el estado de unPaciene
       } else {
         // Creando Registro
         objetoPasiente.id = generarId(); // generamos el id para agragar nuevo registro
