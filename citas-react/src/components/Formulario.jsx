@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Error } from "./Error";
-import { Paciente } from "./Paciente";
 
-export function Formulario({pacientes, setPacientes }) {
+export function Formulario({ unPaciente, pacientes, setPacientes }) {
   const [nombre, setNombre] = useState("");
   const [propietario, setPropietario] = useState("");
   const [email, setEmail] = useState("");
@@ -11,12 +10,22 @@ export function Formulario({pacientes, setPacientes }) {
 
   const [error, setError] = useState(false);
 
-  const generarId=()=>{
-   const random= Math.random().toString(36).substring(2);
-   const fecha = Date.now().toString(36)
-   
-   return random+fecha
-  }
+  useEffect(() => {
+    if (Object.keys(unPaciente).length > 0) {
+      setNombre(unPaciente.nombre);
+      setPropietario(unPaciente.propietario);
+      setEmail(unPaciente.email);
+      setfecha(unPaciente.fecha);
+      setSintomas(unPaciente.sintomas);
+    }
+  }, [unPaciente]);
+
+  const generarId = () => {
+    const random = Math.random().toString(36).substring(2);
+    const fecha = Date.now().toString(36);
+
+    return random + fecha;
+  };
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -25,17 +34,29 @@ export function Formulario({pacientes, setPacientes }) {
       setError(true);
     } else {
       setError(false);
-      //envio de datos, despues borramos
+
       const objetoPasiente = {
         nombre,
         propietario,
         email,
         fecha,
         sintomas,
-        id:generarId()
       };
-      setPacientes([...pacientes,objetoPasiente]);
-      console.log("El formulario se envio correctamente");
+
+      if (unPaciente.id) {
+        // Editando Registro
+        objetoPasiente.id = unPaciente.id;
+
+        const pacientesActualizados = pacientes.map((pte) =>
+          pte.id === unPaciente.id ? objetoPasiente : pte
+        );
+        setPacientes(pacientesActualizados)
+      } else {
+        // Creando Registro
+        objetoPasiente.id = generarId(); // generamos el id para agragar nuevo registro
+        setPacientes([...pacientes, objetoPasiente]);
+      }
+      //reinicio de formulario
       setNombre("");
       setPropietario("");
       setEmail("");
@@ -56,7 +77,7 @@ export function Formulario({pacientes, setPacientes }) {
         onSubmit={handelSubmit}
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5"
       >
-        {error && <Error msg="todos los campos son obligatorio"/>}
+        {error && <Error msg="todos los campos son obligatorio" />}
 
         <div className="mb-5">
           <label
@@ -141,7 +162,7 @@ export function Formulario({pacientes, setPacientes }) {
         <input
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md hover:bg-indigo-700 cursor-pointer transition-all"
-          value="Agregar paciente"
+          value={unPaciente.id ? "Editar paciente" : "Agregar paciente"}
         />
       </form>
     </div>
