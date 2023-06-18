@@ -1,6 +1,15 @@
 import React from "react";
 
-export function Paciente({setUnPaciente, paciente }) {
+export function Paciente({setUnPaciente, paciente,eliminarPaciente}) {
+
+  const handelEliminar=()=>{
+    const respuesta =  confirm("desea eliminar el paciente?")
+    if(respuesta){
+      eliminarPaciente(paciente.id)
+    }
+
+  }
+
   return (
     <div className="mx-5 mb-10 bg-white shadow-md  px-5 py-10 rounded-md">
       <p className="font-bold mb-3 text-gray-700 uppercase">
@@ -34,6 +43,7 @@ export function Paciente({setUnPaciente, paciente }) {
         <button
           type="button"
           className="py-2 px-10 bg-red-500 hover:bg-red-600 text-white font-bold uppercase rounded-lg transition-all"
+          onClick={handelEliminar}
         >
           Eliminar
         </button>

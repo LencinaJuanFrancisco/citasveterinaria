@@ -1,7 +1,7 @@
 
 import { Paciente } from "./Paciente";
 
-export function ListadoPaciente({ setUnPaciente, pacientes }) {
+export function ListadoPaciente({ setUnPaciente, pacientes,eliminarPaciente }) {
  
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll ">
@@ -18,6 +18,7 @@ export function ListadoPaciente({ setUnPaciente, pacientes }) {
               key={paciente.id}
               setUnPaciente={setUnPaciente}
               paciente={paciente}
+              eliminarPaciente={eliminarPaciente}
             />
           ))}
         </>
